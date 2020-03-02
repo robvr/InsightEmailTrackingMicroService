@@ -8,6 +8,7 @@ const app = require('../app');
 const debug = require('debug')('insightemailtrackingmicroservice:server');
 const http = require('http');
 const config = require('../config/config');
+let mongoUtil = require('../util/mongoUtil');
 
 /**
  * Get port from environment and store in Express.
@@ -22,15 +23,25 @@ app.set('port', port);
 
 let server = http.createServer(app);
 
-/**
- * Listen on provided port, on all network interfaces.
- */
+app.on('ready', () => {
+  /**
+   * Listen on provided port, on all network interfaces.
+   */
 
-server.listen(port, () => {
-  console.log(`---- SERVER STARTED ON PORT [${port}] ----`);
+  server.listen(port, () => {
+    console.log(`> server started on [${port}]`);
+  });
+  server.on('error', onError);
+  server.on('listening', onListening);
 });
-server.on('error', onError);
-server.on('listening', onListening);
+
+/**
+ * Connect to DB
+ */
+mongoUtil.connectToServer((err, client) => {
+  if (err) console.log(err);
+  app.emit('ready');
+});
 
 /**
  * Normalize a port into a number, string, or false.
