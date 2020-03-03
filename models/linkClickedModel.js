@@ -11,12 +11,12 @@ const schema = {
     }
   },
   campaignId: { type: String, required: true },
-  lastSeenActivity: { type: Date, require: true, default: new Date() },
-  numberOfViews: { type: Number, required: true, default: 1}
+  linkId: { type: String, required: true },
+  numberOfClicks: { type: Number, required: true, default: 1}
 
 };
 
-const collectionName = 'opened_mails';
+const collectionName = 'clicked_links';
 const openedMailSchema = mongoose.Schema(schema);
-const OpenedMail = mongoose.model(collectionName, openedMailSchema);
-module.exports = OpenedMail;
+const ClickedLinks = mongoose.model(collectionName, openedMailSchema);
+module.exports = ClickedLinks;
