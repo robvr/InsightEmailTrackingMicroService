@@ -4,14 +4,11 @@ let mailEventsTrackingCtrl = require('../controllers/mailEventsTrackingControlle
 
 let mainRouter = () => {
   router.get('/', (req, res) => {
-    console.log(req);
     res.send('OK');
   });
-  router.get('/opened', mailEventsTrackingCtrl.mailOpenedEventTracker);
 
-  router.get('/linkClicked', (req, res) => {
-    res.send('Link Clicked');
-  });
+  router.get('/opened', mailEventsTrackingCtrl.mailOpenedEventTracker);
+  router.get('/linkClicked', mailEventsTrackingCtrl.linkClickedTracker);
 
   return router;
 };
