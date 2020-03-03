@@ -15,6 +15,7 @@ let mailEventTrackerRepository = {
       let mailEvent = new MailOpenedModel(mailTrackObj);
       mailEvent.save()
         .then(doc => {
+          console.log('U be save');
           resolve(doc);
         })
         .catch(err => {
@@ -30,7 +31,17 @@ let mailEventTrackerRepository = {
         resolve(data);
       });
     });
-  }
+  },
+ 
+  getAllMailOpenedData: () => {
+    return new Promise((resolve, reject) => {
+      MailOpenedModel.find((err, data) => {
+        if (err)
+          reject();
+        resolve(data);
+      });
+    });
+  },
 };
 
 module.exports = mailEventTrackerRepository;

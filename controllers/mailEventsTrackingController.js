@@ -18,7 +18,17 @@ let mailEventsTrackerCtrl = {
          }).then(res.send(''));
        }
      });
-  }
+  },
+
+  getMailOpenedEventTracker: (req, res) => {
+    mailRepository.getAllMailOpenedData()
+      .then(data => {
+        res.send(data);
+      }).catch((e) => {
+        console.log(e);
+        res.send(e);
+      });
+   }
 };
 
 module.exports = mailEventsTrackerCtrl;
