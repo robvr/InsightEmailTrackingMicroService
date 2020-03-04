@@ -33,6 +33,7 @@ let mailEventsTrackerCtrl = {
         res.send(e);
       });
   },
+  
   linkClickedTracker: (req, res) => {
     if (!req.query.info) {
       res.status(400);
@@ -41,7 +42,6 @@ let mailEventsTrackerCtrl = {
       let buff = new Buffer.from(req.query.info, 'base64');
       let text = buff.toString('ascii');
       let parameters = getUrlParametersInObj(text);
-
       if (!(parameters.receiverEmail && parameters.senderId && parameters.campaignId && parameters.linkId && parameters.url)) {
         res.status(400);
         res.send('NOK');
@@ -68,7 +68,17 @@ let mailEventsTrackerCtrl = {
           });
       }
     }
-  }
+  },
+
+  getLinkClickedTracker: (req, res) => {
+    mailRepository.getAllLinkClickedData()
+      .then(data => {
+        res.send(data);
+      }).catch((e) => {
+        console.log(e);
+        res.send(e);
+      });
+  },
 };
 
 let redirectToUrl = (res, url) => {
