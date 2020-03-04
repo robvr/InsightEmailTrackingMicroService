@@ -33,7 +33,6 @@ let mailEventsTrackerCtrl = {
         res.send(e);
       });
   },
-  
   linkClickedTracker: (req, res) => {
     if (!req.query.info) {
       res.status(400);
@@ -69,7 +68,6 @@ let mailEventsTrackerCtrl = {
       }
     }
   },
-
   getLinkClickedTracker: (req, res) => {
     mailRepository.getAllLinkClickedData()
       .then(data => {
