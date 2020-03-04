@@ -17,7 +17,6 @@ let mailEventTrackerRepository = {
 
       mailEvent.save()
         .then(doc => {
-          console.log('U be save');
           resolve(doc);
         })
         .catch(err => {
@@ -65,10 +64,18 @@ let mailEventTrackerRepository = {
       });
     });
   },
- 
   getAllMailOpenedData: () => {
     return new Promise((resolve, reject) => {
       MailOpenedModel.find((err, data) => {
+        if (err)
+          reject();
+        resolve(data);
+      });
+    });
+  },
+  getAllLinkClickedData: () => {
+    return new Promise((resolve, reject) => {
+      LinkClickedModel.find((err, data) => {
         if (err)
           reject();
         resolve(data);
